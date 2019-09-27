@@ -1,0 +1,127 @@
+/*///////////////////////////////////////////////////////////////////////////*/
+/*  PROGRESSIVE WEB APPLICATIONS
+/*///////////////////////////////////////////////////////////////////////////*/
+
+    Son aplicaciones web que tiene las siguientes características:
+
+        - Pueden atender a las peticiones del usuario sin conexión a internet.
+        - Se integran en el sistema operativo como una aplicación nativa.
+        - Cuentan con notificaciones push.
+
+/*===========================================================================*/
+/*  SERVICE WORKER
+/*===========================================================================*/
+
+    Es un intermediario que intercepta las peticiones que realiza el sitio web
+    al servidor, cuyo ciclo de vida es:
+
+        Instalación => Instalado => Activación => Activado => Ocioso
+            |
+        Error
+
+        - Instalación:
+            - Se descarga el archivo del service worker (JavaScript).
+            - Se revisa el archivo.
+            - Se instala el archivo:
+                - Si falla el proceso se reanuda hasta la recarga.
+                - Si tiene éxtico continúa con la siguiente fase.
+        - Espera:
+            - Se continúa si no hay otro service wroker trabajando.
+                - Si existe, espera a que termine su proceso.
+        - Activación:
+            - Se dispara un evento antes de la activación.
+        - Activado:
+            - Toma el control total o parcial de la aplicación.
+        - Ocioso:
+            - Se activa cuando falla la instalación o es reemplazado.
+            - Pierde el control de la aplicación.
+
+/*===========================================================================*/
+/*  APP SHELL
+/*===========================================================================*/
+
+    Son los archivos esenciales para que la aplicación funcione:
+        - Index
+        - Estilos
+        - Scripts
+
+/*===========================================================================*/
+/*  NOTIFICACIONES PUSH
+/*===========================================================================*/
+
+    Son notificaciones envíadas desde el servidor para notificar al usuario
+    acerca de una acción en el sistema.
+
+/*===========================================================================*/
+/*  SERVIDOR PUSH
+/*===========================================================================*/
+
+    Es el servidor encargado únicamente de administrar las subscripciones de
+    los usuarios a las notificaciones push.
+
+/*===========================================================================*/
+/*  ESTADOS DE LAS NOTIFICACIONES PUSH
+/*===========================================================================*/
+
+    Las notificaciones push cuentan con varios estados, los cuales son los
+    mostrados a continuación:
+
+        - Granted: El usuario acepta las notificaciones.
+        - Denied: El usuario rechaza las notificaciones.
+        - Default: Se toma la configuración por defecto del navegador.
+
+/*===========================================================================*/
+/*  TIPS PARA LAS NOTIFICACIONES PUSH
+/*===========================================================================*/
+
+    - Mostrar el dialogo de las notificaciones en el momento adecuado.
+    - Mostrar los beneficios que se obtienen tras aceptar las notificaciones.
+
+/*===========================================================================*/
+/*  ESTRATEGIAS DE CACHE
+/*===========================================================================*/
+
+/*---------------------------------------------------------------------------*/
+/*  CACHE ONLY
+/*---------------------------------------------------------------------------*/
+
+    Una vez que se han guardado los archivos necesarios para que el sitio web 
+    funcione, nunca se vuelven a realizar las peticiones a internet.
+
+/*---------------------------------------------------------------------------*/
+/*  CACHE WITH NETWORK FALLBACK
+/*---------------------------------------------------------------------------*/
+
+    Se da prioridad a los archivos que estan almacenados en el cache, pero si
+    alguno de ellos falla, recurre a la red. Opcionalmente los recursos traidos
+    pueden guardarse en el cache.
+
+/*---------------------------------------------------------------------------*/
+/*  NETWORK WITH CACHE CALLBACK
+/*---------------------------------------------------------------------------*/
+
+    Se da prioridad a los archivos que vienen de la red. En caso de que no 
+    encuentre alguno, recurre al cache para verificar si ahí está disponible.
+
+/*---------------------------------------------------------------------------*/
+/*  DYNAMIC CACHE
+/*---------------------------------------------------------------------------*/
+
+    Se almacenan archivos que por lo general son cambiante en la aplicacion en 
+    un cache que será refrescado constantemente, separando los archivos del
+    App Shell.
+
+/*---------------------------------------------------------------------------*/
+/*  CACHE WITH NEWTORK UPDATE
+/*---------------------------------------------------------------------------*/
+
+    Se utilizan los arhivos almacenados en el cache, pero en cada petición se 
+    realiza una actualización del contenido del app shell, lo cual, también 
+    puede actualizar ciertos archivos.
+
+/*---------------------------------------------------------------------------*/
+/*  CACHE AND NETWORK RACING
+/*---------------------------------------------------------------------------*/
+
+    Se hacen dos peticiones, una al cache y la otra a la red, y se usa la que
+    se resuelva primero.
